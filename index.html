@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Wiki SuperHero - Home</title>
+    <link href="css/styles.css" rel="stylesheet" />
+  </head>
+  <body>
+    <div class="topS1">
+      SuperHero
+    </div>
+    <div class="centerS2">
+        <div class="buttonS2">
+          <div class="boxTop p-0"></div>
+          <h4>Escolha um heroi aleatorio da nossa lista, e veja as informações dele.</h4>
+          <div><button onClick="randomNum()" style="cursor:pointer">Escolher</button></div>
+        </div>
+        <div class="listGeralS2">
+          <h3 class="subtitleS2">Listagem de Herois</h3>
+          <div class="container resultado"></div>
+        </div>
+    </div>
+    <div class="footerS3">
+        © 2020 - Wiki SuperHero
+    </div>
+    <script>
+        function randomNum(num){
+            var random = Math.floor(Math.random() * 731);
+            var xhr = new XMLHttpRequest();
+            xhr.open("GET", "https://cdn.rawgit.com/akabab/superhero-api/0.2.0/api/id/"+ random +".json");
+            xhr.addEventListener("load", function(){
+              var hero = JSON.parse(xhr.responseText);
+              document.querySelector('.boxTop').innerHTML = `
+                  <div class="cardContainer">
+                    <h2>Name: ${hero.name}</h2>
+                    <img src="${hero.images.sm}"></img>
+                    <ul><li>Abilities</li>
+                  <li>Intelligence:${hero.powerstats.intelligence}</li>
+                  <li>Strenght:${hero.powerstats.strength}</li>
+                  <li>Speed:${hero.powerstats.speed}</li>
+                  <li>Durability:${hero.powerstats.durability}</li>
+                  <li>Power:${hero.powerstats.power}</li>
+                  <li>Combat:${hero.powerstats.combat}</li>
+                  
+                </ul>
+                  <div>
+                  `;
+            });
+            xhr.send();
+            document.querySelector('.resultBox').innerHTML = ``;
+        }
+    </script>
+  </body>
+</html>
